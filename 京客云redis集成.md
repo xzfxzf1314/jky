@@ -187,3 +187,51 @@
     > 审核系统
 
     ![](http://ohwrspy13.bkt.clouddn.com/18-5-22/72961292.jpg)
+
+
+
+
+
+## 修改内容
+
+* 在application-context.xml中配置 
+
+    ```xml
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="300" />
+		<property name="maxIdle" value="100" />
+		<property name="maxWaitMillis" value="1000" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1">
+			<list>
+				<bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg name="host" value="${jedis.hostName}" />
+					<constructor-arg name="port" value="${jedis.port}" />
+					<property name="password" value="${jedis.password}"></property>
+					<property name="timeout" value="${jedis.timeout}"></property>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+    ```    
+
+    __第一版的类映射可以删除__
+
+* 前端只会传输sessionID数据，在登录系统里会进行映射，成一个userId和userType。相关的值如下：
+
+    ```java
+    public static final String USER_TYPE = "userType";
+    public static final String USER_ID = "userID";
+    ```
+后端controller层，需要通过以下方式来获取值(由于request里的map是unmodefied)。
+
+    ```java
+
+    request.getAttribute(RequestConstants.USER_ID);  //获取userID
+    request.getAttribute(RequestConstants.USER_TYPE) //获取userType
+
+    ```
