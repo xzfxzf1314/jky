@@ -221,7 +221,7 @@
 
     __第一版的类映射可以删除__
 
-* 前端只会传输sessionID数据，在登录系统里会进行映射，成一个userId和userType。相关的值如下：
+<!-- * 前端只会传输sessionID数据，在登录系统里会进行映射，成一个userId和userType。相关的值如下：
 
     ```java
     public static final String USER_TYPE = "userType";
@@ -232,6 +232,6 @@
     ```java
 
     request.getAttribute(RequestConstants.USER_ID);  //获取userID
-    request.getAttribute(RequestConstants.USER_TYPE) //获取userType
+    request.getAttribute(RequestConstants.USER_TYPE) //获取userType -->
 
     ```
