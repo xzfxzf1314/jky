@@ -13,4 +13,5 @@
 
 ## 1.3版本
 
-1. head里增加platform字段(排除 auth/sendSms, auth/register, auth/getAuthImage三个接口)
+1. head里增加platform字段(排除 auth/sendSms, auth/register, auth/getAuthImage三个接口)。
+2. 对web类型的终端不在做多设备登录的判断，但是mac字段要传。默认值为空。其他终端类型需要传递mac值。
